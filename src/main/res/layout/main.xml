@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:id="@+id/mainView"
+	android:gravity="center">
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal"
+		android:id="@+id/menuEntity"
+		android:visibility="gone"
+		android:background="@color/red">
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="activity"
+			android:layout_width="wrap_content"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="class"
+			android:layout_width="wrap_content"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="method"
+			android:layout_width="wrap_content"
+			android:onClick="onButtonMethodTapped"/>
+		
+		<ImageButton
+			android:layout_height="wrap_content"
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_width="wrap_content"
+			android:src="@android:drawable/ic_menu_close_clear_cancel"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal"
+		android:id="@+id/menuAccessLevel"
+		android:background="@color/orange"
+		android:visibility="gone">
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="public"
+			android:id="@+id/b_public"
+			android:layout_width="wrap_content"
+			android:onClick="onAccessLevelButtonTapped"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="private"
+			android:id="@+id/b_private"
+			android:layout_width="wrap_content"
+			android:onClick="onAccessLevelButtonTapped"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="protected"
+			android:id="@+id/b_protected"
+			android:layout_width="wrap_content"
+			android:onClick="onAccessLevelButtonTapped"/>
+
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal"
+		android:id="@+id/menuReturnType"
+		android:background="@color/yellow"
+		android:visibility="gone">
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="void"
+			android:id="@+id/bVoid"
+			android:layout_width="wrap_content"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="int"
+			android:layout_width="wrap_content"
+			android:id="@+id/bInt"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			android:text="string"
+			android:layout_width="wrap_content"
+			android:id="@+id/bString"/>
+
+	</LinearLayout>
+
+	<Button
+		android:layout_height="wrap_content"
+		android:text="add"
+		android:id="@+id/bAdd"
+		android:layout_width="wrap_content"
+		android:onClick="onButtonAddTap"/>
+
+</LinearLayout>
+
