@@ -4,7 +4,8 @@ import android.app.*;
 import android.graphics.*;
 import android.os.*;
 import android.view.*;
-import android.widget.*; 
+import android.widget.*;
+import android.widget.AbsoluteLayout.*; 
 
 public class OverviewActivity extends Activity 
 {
@@ -12,6 +13,7 @@ public class OverviewActivity extends Activity
 	final static int ACCESS_LEVEL_INDEX = 1;
 	int[] instructions= new int[4];
 	Picker p;
+	View welcomeMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -20,10 +22,16 @@ public class OverviewActivity extends Activity
         setContentView(R.layout.main);
 
 		Button bAdd = (Button)findViewById(R.id.bAdd);
+		welcomeMessage = findViewById(R.id.welcome_message);
+		
     }
 
 	public void onDeskTap(View v)
 	{
+		// Clear hint
+		if (welcomeMessage.isShown())
+			welcomeMessage.setVisibility(View.GONE);
+		
 		// Add a new top-level object
 		// Options:
 		//   class, activity, resource
