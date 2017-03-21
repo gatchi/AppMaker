@@ -28,7 +28,14 @@ public class OverviewActivity extends Activity
 		// Options:
 		//   class, activity, resource
 		// Ask the user
-		askQuestion(JavaEntity.TOP_LEVEL_ENTITY, v);
+		if (p != null)
+		{
+			if(p.popup.isShowing())
+				p.popup.dismiss();
+			else askQuestion(JavaEntity.TOP_LEVEL_ENTITY, v);
+		}
+		else
+			askQuestion(JavaEntity.TOP_LEVEL_ENTITY, v);
 	}
 
 	void askQuestion(int about, View parent)

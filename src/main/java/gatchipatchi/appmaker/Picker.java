@@ -10,11 +10,15 @@ public class Picker
 	PopupWindow popup = new PopupWindow();
 	LinearLayout vg;
 	ViewGroup parent;
+	Context c;
 	
 	Picker(Context c, int kind, View parent)
 	{
 		vg = new LinearLayout(c);
+		vg.setBackgroundColor(R.color.red);
 		this.parent = (ViewGroup)parent;
+		this.c = c;
+		
 		LinearLayout.LayoutParams p;
 		p = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		vg.setLayoutParams(p);
@@ -39,13 +43,12 @@ public class Picker
 			tv.setText("oops");
 			vg.addView(tv);
 		}
-		//ViewGroup main = (ViewGroup)parent;
-		//main.addView(vg);
+		
 		popup.setContentView(vg);
-		popup.setFocusable(true);
+		popup.setTouchable(true);
 		popup.setHeight(LayoutParams.WRAP_CONTENT);
 		popup.setWidth(LayoutParams.WRAP_CONTENT);
-		//popup.showAsDropDown(parent);
+		popup.setOutsideTouchable(true);
 		popup.showAtLocation(parent, Gravity.CENTER, 0, 0);
 	}
 	
@@ -62,6 +65,7 @@ public class Picker
 		public void onClick(View p1)
 		{
 			JavaEntity.createClass();
+			Toast.makeText(c,"boop",Toast.LENGTH_SHORT).show();
 			popup.dismiss();
 		}
 	};
