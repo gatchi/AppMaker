@@ -113,14 +113,4 @@ public class Picker
 			window.dismiss();
 		}
 	};
-	
-	View.OnClickListener bTapListener = new View.OnClickListener()
-	{
-		@Override
-		public void onClick(View p1)
-		{
-			Button b = (Button)p1;
-			
-		}
-	};
 }
