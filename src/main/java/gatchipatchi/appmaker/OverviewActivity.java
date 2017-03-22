@@ -13,6 +13,7 @@ public class OverviewActivity extends Activity
 	final static int ACCESS_LEVEL_INDEX = 1;
 	int[] instructions= new int[4];
 	Picker picker;
+	View anchor;
 	View welcomeMessage;
 
     @Override
@@ -20,8 +21,12 @@ public class OverviewActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+		
 		ViewGroup mainLayout = (ViewGroup)findViewById(R.id.mainLayout);
 		mainLayout.setOnTouchListener(deskTouchListener);
+		
+		anchor = findViewById(R.id.anchor);
+		anchor.setBackgroundColor(R.color.orange);
 
 		Button bAdd = (Button)findViewById(R.id.bAdd);
 		welcomeMessage = findViewById(R.id.welcome_message);
@@ -118,7 +123,7 @@ public class OverviewActivity extends Activity
 				int yPos = Math.round(e.getY());
 				
 				if (picker == null)
-					picker = new Picker(OverviewActivity.this, v, xPos, yPos, JavaEntity.TOP_LEVEL_ENTITY);
+					picker = new Picker(OverviewActivity.this, anchor, xPos, yPos, JavaEntity.TOP_LEVEL_ENTITY);
 				
 				// maybe replace with Picker's own isShowing()
 				// or maybe extend PopupWindow?

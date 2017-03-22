@@ -11,7 +11,7 @@ public class Picker
 	PopupWindow window = new PopupWindow();
 	int kind;
 	LinearLayout vg;
-	ViewGroup parent;
+	View parent;
 	ViewGroup.LayoutParams params;
 	Context c;
 	int x, y;
@@ -20,7 +20,7 @@ public class Picker
 	{
 		vg = new LinearLayout(c);
 		vg.setBackgroundColor(R.color.red);
-		this.parent = (ViewGroup)parent;
+		this.parent = parent;
 		this.c = c;
 		this.x = x;
 		this.y = y;
@@ -50,7 +50,7 @@ public class Picker
 	void publish()
 	{
 		//window.showAtLocation(parent, Gravity.CENTER, 0, 0);
-		window.showAsDropDown(parent, x, -100);
+		window.showAsDropDown(parent, x, y);
 	}
 	
 	void setType(int kind)
