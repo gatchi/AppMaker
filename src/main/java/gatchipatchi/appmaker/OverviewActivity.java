@@ -12,7 +12,7 @@ public class OverviewActivity extends Activity
 	final static int TYPE_INDEX = 0;
 	final static int ACCESS_LEVEL_INDEX = 1;
 	int[] instructions= new int[4];
-	Picker p;
+	Picker picker;
 	View welcomeMessage;
 
     @Override
@@ -20,6 +20,8 @@ public class OverviewActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+		ViewGroup mainLayout = (ViewGroup)findViewById(R.id.mainLayout);
+		mainLayout.setOnTouchListener(deskTouchListener);
 
 		Button bAdd = (Button)findViewById(R.id.bAdd);
 		welcomeMessage = findViewById(R.id.welcome_message);
@@ -28,30 +30,34 @@ public class OverviewActivity extends Activity
 
 	public void onDeskTap(View v)
 	{
-		// Clear hint
-		if (welcomeMessage.isShown())
-			welcomeMessage.setVisibility(View.GONE);
-		
-		// Add a new top-level object
+		clearHint();
+		addTopLevelEntity(v);
+	}
+
+	void addTopLevelEntity(View v)
+	{
 		// Options:
 		//   class, activity, resource
-		// Ask the user
-		if (p != null)
-		{
-			if(p.popup.isShowing())
-				p.popup.dismiss();
-			else askQuestion(JavaEntity.TOP_LEVEL_ENTITY, v);
-		}
-		else
-			askQuestion(JavaEntity.TOP_LEVEL_ENTITY, v);
+		// so ask which she wants to add
+		askUser(JavaEntity.TOP_LEVEL_ENTITY, v);
 	}
-
-	void askQuestion(int about, View parent)
+	
+	void askUser(int about, View parent)
 	{
 		if (about == JavaEntity.TOP_LEVEL_ENTITY)
-			p = new Picker(this, JavaEntity.TOP_LEVEL_ENTITY, parent);
+		{
+			// maybe make a isShowing for Picker
+			
+		}
+			
 	}
 
+	void clearHint()
+	{
+		if (welcomeMessage.isShown())
+			welcomeMessage.setVisibility(View.GONE);
+	}
+	
 	public void toggleMenu(int resource)
 	{
 		ViewGroup vg = (ViewGroup)findViewById(resource);
@@ -100,6 +106,36 @@ public class OverviewActivity extends Activity
 		closeMenu(R.id.menuAccessLevel);
 	}
 
+	View.OnTouchListener deskTouchListener = new View.OnTouchListener() 
+	{
+		@Override
+		public boolean onTouch(View v, MotionEvent e)
+		{
+			if (e.getAction() == MotionEvent.ACTION_DOWN)
+			{
+				clearHint();
+				int xPos = Math.round(e.getX());
+				int yPos = Math.round(e.getY());
+				
+				if (picker == null)
+					picker = new Picker(OverviewActivity.this, v, xPos, yPos, JavaEntity.TOP_LEVEL_ENTITY);
+				
+				// maybe replace with Picker's own isShowing()
+				// or maybe extend PopupWindow?
+				if (picker.window.isShowing())
+					picker.window.dismiss();
+				else
+				{
+					// consider replacing next two lines with updatePos() method
+					picker.x = xPos;
+					picker.y = yPos;
+					picker.publish();
+				}
+			}
+			return true;
+		}
+	};
+	
 	void popMesg(String mesg)
 	{
 		Toast t = Toast.makeText(this, mesg, Toast.LENGTH_SHORT);
