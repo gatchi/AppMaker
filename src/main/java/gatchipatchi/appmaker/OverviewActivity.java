@@ -17,7 +17,7 @@ public class OverviewActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.component);
 		
 		ViewGroup mainLayout = (ViewGroup)findViewById(R.id.mainLayout);
 		mainLayout.setOnTouchListener(deskTouchListener);
