@@ -1,31 +1,33 @@
 package gatchipatchi.appmaker;
-import android.content.*;
+import android.app.*;
 import android.view.*;
 import android.widget.*;
 import java.util.*;
 import android.widget.AbsoluteLayout.*;
+import gatchipatchi.appmaker.modules.*;
 
 public class Picker
 {
 	PopupWindow window = new PopupWindow();
 	int kind;
-	LinearLayout vg;
-	View parent;
+	LinearLayout buttonLayout;
+	View anchor;
 	ViewGroup.LayoutParams params;
-	Context c;
+	Activity c;
+	ViewGroup desktop;
 	int x, y;
 	
-	Picker(Context c, View parent, int x, int y)
+	Picker(Activity c, View anchor, int x, int y)
 	{
-		this.parent = parent;
+		this.anchor = anchor;
 		this.c = c;
 		this.x = x;
 		this.y = y;
-		
+		this.desktop = (ViewGroup)c.findViewById(R.id.desktop);
 	}
-	Picker(Context c, View parent, int x, int y, int kind)
+	Picker(Activity c, View anchor, int x, int y, int kind)
 	{
-		this(c, parent, x, y);
+		this(c, anchor, x, y);
 		this.kind = kind;
 		setType(kind);
 		
@@ -33,10 +35,10 @@ public class Picker
 		int layoutWidth = LayoutParams.WRAP_CONTENT;
 		int layoutHeight = LayoutParams.WRAP_CONTENT;
 		params = new LinearLayout.LayoutParams(layoutWidth, layoutHeight);
-		vg.setLayoutParams(params);
-		vg.setOrientation(LinearLayout.HORIZONTAL);
+		buttonLayout.setLayoutParams(params);
+		buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
 		
-		window.setContentView(vg);
+		window.setContentView(buttonLayout);
 		window.setTouchable(true);
 		window.setHeight(LayoutParams.WRAP_CONTENT);
 		window.setWidth(LayoutParams.WRAP_CONTENT);
@@ -46,13 +48,12 @@ public class Picker
 	
 	void publish()
 	{
-		//window.showAtLocation(parent, Gravity.CENTER, 0, 0);
-		window.showAsDropDown(parent, x, y);
+		window.showAsDropDown(anchor, x, y);
 	}
 	
 	void setType(int kind)
 	{
-		vg = new LinearLayout(c);
+		buttonLayout = new LinearLayout(c);
 		
 		if (kind == JavaEntity.TOP_LEVEL_ENTITY)
 		{
@@ -63,9 +64,9 @@ public class Picker
 			Button bResource = makeButton(c, "resource");
 			bResource.setOnClickListener(onButtonResourceClick);
 
-			vg.addView(bClass);
-			vg.addView(bActivity);
-			vg.addView(bResource);
+			buttonLayout.addView(bClass);
+			buttonLayout.addView(bActivity);
+			buttonLayout.addView(bResource);
 		}
 		else if (kind == JavaEntity.XML_ENTITY)
 		{
@@ -74,18 +75,18 @@ public class Picker
 			Button bWidget= makeButton(c, "widget");
 			bWidget.setOnClickListener(onButtonWidgetClick);
 
-			vg.addView(bView);
-			vg.addView(bWidget);
+			buttonLayout.addView(bView);
+			buttonLayout.addView(bWidget);
 		}
 		else
 		{
 			TextView tv = new TextView(c);
 			tv.setText("oops");
-			vg.addView(tv);
+			buttonLayout.addView(tv);
 		}
 	}
 	
-	Button makeButton(Context context, String name)
+	Button makeButton(Activity context, String name)
 	{
 		Button b = new Button(context);
 		b.setText(name);
@@ -97,7 +98,8 @@ public class Picker
 		@Override
 		public void onClick(View p1)
 		{
-			JavaEntity.createClass();
+			ClassModule jclass = new ClassModule(c);
+			desktop.addView(jclass.gui);
 			Toast.makeText(c,"boop",Toast.LENGTH_SHORT).show();
 			window.dismiss();
 		}

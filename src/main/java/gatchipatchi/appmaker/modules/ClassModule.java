@@ -3,26 +3,25 @@ import android.app.*;
 import android.util.*;
 import android.view.*;
 import gatchipatchi.appmaker.*;
-import org.xmlpull.v1.*;
 import android.widget.*;
 import java.util.*;
 
-public class Method
+public class ClassModule
 {
-	ViewGroup gui;
+	public ViewGroup gui;
 	List<String> canContain;
-	String moduleType = "method";
-	
-	Method(Application context)
+	String moduleType = "class";
+
+	public ClassModule(Activity context)
 	{
-		XmlPullParser parser = context.getResources().getXml(R.layout.method);
-		AttributeSet attributes = Xml.asAttributeSet(parser);
-		gui = new RelativeLayout(context, attributes);
-		
+		LayoutInflater inflater = LayoutInflater.from(context);
+		gui = (ViewGroup) inflater.inflate(R.layout.class_layout, null);
+
 		canContain = new ArrayList<String>();
 		canContain.add("class");
+		canContain.add("method");
 	}
-	
+
 	String getModuleType()
 	{
 		return moduleType;

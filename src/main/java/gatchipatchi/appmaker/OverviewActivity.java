@@ -5,7 +5,8 @@ import android.graphics.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
-import android.widget.AbsoluteLayout.*; 
+import android.widget.AbsoluteLayout.*;
+import gatchipatchi.appmaker.modules.*; 
 
 public class OverviewActivity extends Activity 
 {
@@ -17,10 +18,10 @@ public class OverviewActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.component);
+        setContentView(R.layout.component_layout);
 		
-		ViewGroup mainLayout = (ViewGroup)findViewById(R.id.mainLayout);
-		mainLayout.setOnTouchListener(deskTouchListener);
+		ViewGroup desktop = (ViewGroup)findViewById(R.id.desktop);
+		desktop.setOnTouchListener(deskTouchListener);
 		
 		anchor = findViewById(R.id.anchor);
 		welcomeMessage = findViewById(R.id.welcome_message);

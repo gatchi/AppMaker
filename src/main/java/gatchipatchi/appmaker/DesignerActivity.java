@@ -17,9 +17,9 @@ public class DesignerActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.component);
+        setContentView(R.layout.component_layout);
 		
-		ViewGroup mainLayout = (ViewGroup)findViewById(R.id.mainLayout);
+		ViewGroup mainLayout = (ViewGroup)findViewById(R.id.desktop);
 		mainLayout.setOnTouchListener(deskTouchListener);
 		
 		anchor = findViewById(R.id.anchor);
