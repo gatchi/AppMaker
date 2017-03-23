@@ -4,7 +4,6 @@ import android.view.*;
 import android.widget.*;
 import java.util.*;
 import android.widget.AbsoluteLayout.*;
-import java.security.cert.*;
 
 public class Picker
 {
@@ -18,8 +17,6 @@ public class Picker
 	
 	Picker(Context c, View parent, int x, int y)
 	{
-		vg = new LinearLayout(c);
-		vg.setBackgroundColor(R.color.red);
 		this.parent = parent;
 		this.c = c;
 		this.x = x;
@@ -30,14 +27,14 @@ public class Picker
 	{
 		this(c, parent, x, y);
 		this.kind = kind;
+		setType(kind);
+		
 		// The following four lines may be deletable
 		int layoutWidth = LayoutParams.WRAP_CONTENT;
 		int layoutHeight = LayoutParams.WRAP_CONTENT;
 		params = new LinearLayout.LayoutParams(layoutWidth, layoutHeight);
 		vg.setLayoutParams(params);
 		vg.setOrientation(LinearLayout.HORIZONTAL);
-		
-		setType(kind);
 		
 		window.setContentView(vg);
 		window.setTouchable(true);
@@ -55,6 +52,8 @@ public class Picker
 	
 	void setType(int kind)
 	{
+		vg = new LinearLayout(c);
+		
 		if (kind == JavaEntity.TOP_LEVEL_ENTITY)
 		{
 			Button bClass = makeButton(c, "class");
@@ -67,6 +66,16 @@ public class Picker
 			vg.addView(bClass);
 			vg.addView(bActivity);
 			vg.addView(bResource);
+		}
+		else if (kind == JavaEntity.XML_ENTITY)
+		{
+			Button bView= makeButton(c, "view");
+			bView.setOnClickListener(onButtonViewClick);
+			Button bWidget= makeButton(c, "widget");
+			bWidget.setOnClickListener(onButtonWidgetClick);
+
+			vg.addView(bView);
+			vg.addView(bWidget);
 		}
 		else
 		{
@@ -110,6 +119,27 @@ public class Picker
 		public void onClick(View p1)
 		{
 			JavaEntity.createResource();
+			window.dismiss();
+		}
+	};
+	
+	View.OnClickListener onButtonViewClick = new View.OnClickListener()
+	{
+		@Override
+		public void onClick(View p1)
+		{
+			//implement
+			window.dismiss();
+		}
+	};
+	
+	View.OnClickListener onButtonWidgetClick = new View.OnClickListener()
+	{
+		@Override
+		public void onClick(View p1)
+		{
+			//implement
+			//JavaEntity.create??
 			window.dismiss();
 		}
 	};
