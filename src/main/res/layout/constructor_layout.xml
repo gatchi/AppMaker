@@ -1,16 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-	android:minWidth="100px"
-	android:minHeight="150px"
+	android:minHeight="2px"
 	android:padding="2px"
-	android:background="@drawable/class_border">
+	android:background="@drawable/constructor_border">
 	
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="class"
-		android:textColor="@color/red"
+		android:text="construct"
+		android:textColor="@color/black"
 		android:visibility="visible"/>
-    
+
 </RelativeLayout>
