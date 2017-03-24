@@ -6,7 +6,7 @@ import android.graphics.drawable.*;
 import android.widget.*;
 import java.util.*;
 
-public class ClassModule extends RelativeLayout
+public class ClassModule extends Module
 {
 	List<String> canContain = new ArrayList<String>();
 	String moduleType = "class";
@@ -14,16 +14,8 @@ public class ClassModule extends RelativeLayout
 	public ClassModule(Context context)
 	{
 		super(context);
-		RelativeLayout.LayoutParams params;
-		int w = RelativeLayout.LayoutParams.WRAP_CONTENT;
-		int h = RelativeLayout.LayoutParams.WRAP_CONTENT;
-		params = new RelativeLayout.LayoutParams(w, h);
-		this.setLayoutParams(params);
 		
-		GradientDrawable border = new GradientDrawable();
-		border.setStroke(2, Color.RED);
-		this.setBackground(border);
-		this.setPadding(8,2,4,4);
+		this.setBackground(super.setBorderColor(Color.RED));
 		this.setMinimumHeight(100);
 		this.setMinimumWidth(100);
 		
