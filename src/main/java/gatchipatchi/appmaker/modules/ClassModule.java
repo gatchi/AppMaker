@@ -1,36 +1,39 @@
 package gatchipatchi.appmaker.modules;
-import android.content.*;
-import android.widget.*;
-import gatchipatchi.appmaker.*;
-import java.util.*;
-import android.widget.AbsoluteLayout.*;
 
-public class ClassModule extends Module
+import android.content.*;
+import android.graphics.*;
+import android.graphics.drawable.*;
+import android.widget.*;
+import java.util.*;
+
+public class ClassModule extends RelativeLayout
 {
-	ConstructorModule constructor;
-	Context context;
+	List<String> canContain = new ArrayList<String>();
+	String moduleType = "class";
 	
 	public ClassModule(Context context)
 	{
-		this.context = context;
-		List<String> canContain = new ArrayList<String>();
+		super(context);
+		RelativeLayout.LayoutParams params;
+		int w = RelativeLayout.LayoutParams.WRAP_CONTENT;
+		int h = RelativeLayout.LayoutParams.WRAP_CONTENT;
+		params = new RelativeLayout.LayoutParams(w, h);
+		this.setLayoutParams(params);
+		
+		GradientDrawable border = new GradientDrawable();
+		border.setStroke(2, Color.RED);
+		this.setBackground(border);
+		this.setPadding(8,2,4,4);
+		this.setMinimumHeight(100);
+		this.setMinimumWidth(100);
+		
+		TextView name = new TextView(context);
+		name.setText(moduleType);
+		name.setTextColor(Color.RED);
+		this.addView(name);
+		
 		canContain.add("class");
 		canContain.add("method");
 		canContain.add("constructor");
-		
-		super.initialize(context, R.layout.class_layout, canContain, "class");
-		
-		constructor = new ConstructorModule(context);
-		addConstructor(constructor);
-	}
-	
-	void addConstructor(ConstructorModule cm)
-	{
-		RelativeLayout.LayoutParams constructorParams;
-		int width = cm.gui.getWidth();
-		int height = cm.gui.getHeight();
-		constructorParams = new RelativeLayout.LayoutParams(width, height);
-		constructorParams.addRule(RelativeLayout.BELOW, cm.gui.getId());
-		gui.addView(cm.gui, constructorParams);
 	}
 }

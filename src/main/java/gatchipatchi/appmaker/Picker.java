@@ -99,7 +99,7 @@ public class Picker
 		public void onClick(View p1)
 		{
 			ClassModule jclass = new ClassModule(c);
-			desktop.addView(jclass.gui);
+			desktop.addView(jclass);
 			Toast.makeText(c,"boop",Toast.LENGTH_SHORT).show();
 			window.dismiss();
 		}
