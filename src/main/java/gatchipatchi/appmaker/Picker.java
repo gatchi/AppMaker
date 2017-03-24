@@ -32,11 +32,6 @@ public class Picker
 		this.kind = kind;
 		setType(kind);
 		
-		// The following four lines may be deletable
-		int layoutWidth = LayoutParams.WRAP_CONTENT;
-		int layoutHeight = LayoutParams.WRAP_CONTENT;
-		params = new LinearLayout.LayoutParams(layoutWidth, layoutHeight);
-		buttonLayout.setLayoutParams(params);
 		buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
 		
 		window.setContentView(buttonLayout);
