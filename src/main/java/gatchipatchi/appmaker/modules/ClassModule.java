@@ -8,14 +8,13 @@ import java.util.*;
 
 public class ClassModule extends Module
 {
-	List<String> canContain = new ArrayList<String>();
 	String moduleType = "class";
 	
 	public ClassModule(Context context)
 	{
 		super(context);
 		
-		this.setBackground(super.setBorderColor(Color.RED));
+		this.setBackground(setBorderColor(Color.RED));
 		this.setMinimumHeight(100);
 		this.setMinimumWidth(100);
 		

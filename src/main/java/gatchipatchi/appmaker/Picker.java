@@ -25,6 +25,7 @@ public class Picker
 		this.y = y;
 		this.desktop = (ViewGroup)c.findViewById(R.id.desktop);
 	}
+	
 	Picker(Activity c, View anchor, int x, int y, int kind)
 	{
 		this(c, anchor, x, y);
@@ -99,8 +100,9 @@ public class Picker
 		public void onClick(View p1)
 		{
 			ClassModule jclass = new ClassModule(c);
+			ConstructorModule jconstruct = new ConstructorModule(c);
+			jclass.addModule(jconstruct);
 			desktop.addView(jclass);
-			Toast.makeText(c,"boop",Toast.LENGTH_SHORT).show();
 			window.dismiss();
 		}
 	};
