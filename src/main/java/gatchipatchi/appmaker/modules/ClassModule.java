@@ -9,6 +9,7 @@ import java.util.*;
 public class ClassModule extends Module
 {
 	String moduleType = "class";
+	Context context;
 	
 	public ClassModule(Context context)
 	{
@@ -26,5 +27,13 @@ public class ClassModule extends Module
 		canContain.add("class");
 		canContain.add("method");
 		canContain.add("constructor");
+		
+		this.context = context;
+	}
+	
+	public void buildConstructor()
+	{
+		ConstructorModule mConstruct = new ConstructorModule(context);
+		this.addModule(mConstruct);
 	}
 }

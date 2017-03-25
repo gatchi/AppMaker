@@ -86,10 +86,9 @@ public class Picker extends LinearLayout
 		{
 			if (button.getId() == BUTTON_CLASS)
 			{
-				ClassModule jclass = new ClassModule(context);
-				ConstructorModule jconstruct = new ConstructorModule(context);
-				jclass.addModule(jconstruct);
-				desktop.addView(jclass);
+				ClassModule mClass = new ClassModule(context);
+				mClass.buildConstructor();
+				desktop.addView(mClass);
 				dismiss();
 			}
 			else
