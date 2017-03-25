@@ -1,17 +1,18 @@
 package gatchipatchi.appmaker;
 
 import android.app.*;
-import android.graphics.*;
+import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
-import android.widget.AbsoluteLayout.*;
-import gatchipatchi.appmaker.modules.*; 
+import gatchipatchi.appmaker.modules.*;
+import org.apache.http.client.utils.*; 
 
 public class OverviewActivity extends Activity 
 {
 	Picker picker;
 	View anchor;
+	ViewGroup desktop;
 	View welcomeMessage;
 
     @Override
@@ -20,7 +21,7 @@ public class OverviewActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.component_layout);
 		
-		ViewGroup desktop = (ViewGroup)findViewById(R.id.desktop);
+		desktop = (ViewGroup)findViewById(R.id.desktop);
 		desktop.setOnTouchListener(deskTouchListener);
 		
 		anchor = findViewById(R.id.anchor);
@@ -33,6 +34,15 @@ public class OverviewActivity extends Activity
 			welcomeMessage.setVisibility(View.GONE);
 	}
 
+	Button makeButton(Context context, String text, int id)
+	{
+		Button b = new Button(context);
+		b.setText(text);
+		b.setId(id);
+		return b;
+	}
+	
+	
 	View.OnTouchListener deskTouchListener = new View.OnTouchListener() 
 	{
 		@Override
@@ -41,21 +51,22 @@ public class OverviewActivity extends Activity
 			if (e.getAction() == MotionEvent.ACTION_DOWN)
 			{
 				clearHint();
-				int xPos = Math.round(e.getX());
-				int yPos = Math.round(e.getY());
 				
 				if (picker == null)
-					picker = new Picker(OverviewActivity.this, anchor, xPos, yPos, JavaEntity.TOP_LEVEL_ENTITY);
+				{
+					picker = new Picker(OverviewActivity.this, anchor, desktop);
+					picker.addNewButton("class", Picker.BUTTON_CLASS);
+					picker.addNewButton("activity", 0);  // not implemented
+					picker.addNewButton("resource", 0);  // not implemented
+				}
 				
-				// maybe replace with Picker's own isShowing()
-				// or maybe extend PopupWindow?
-				if (picker.window.isShowing())
-					picker.window.dismiss();
+				if (picker.isShowing())
+					picker.dismiss();
 				else
 				{
-					// consider replacing next two lines with updatePos() method
-					picker.x = xPos;
-					picker.y = yPos;
+					// consider replacing next three lines with updatePos() method
+					picker.setX(e.getX());
+					picker.setY(e.getY());
 					picker.publish();
 				}
 			}
@@ -63,9 +74,9 @@ public class OverviewActivity extends Activity
 		}
 	};
 	
-	void popMesg(String mesg)
+	public static void popMesg(Context context, String mesg)
 	{
-		Toast t = Toast.makeText(this, mesg, Toast.LENGTH_SHORT);
+		Toast t = Toast.makeText(context, mesg, Toast.LENGTH_SHORT);
 		t.show();
 	}
 }

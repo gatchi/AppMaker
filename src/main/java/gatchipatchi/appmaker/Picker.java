@@ -1,40 +1,31 @@
 package gatchipatchi.appmaker;
 import android.app.*;
+import android.content.*;
 import android.view.*;
 import android.widget.*;
-import java.util.*;
-import android.widget.AbsoluteLayout.*;
 import gatchipatchi.appmaker.modules.*;
 
-public class Picker
+public class Picker extends LinearLayout
 {
+	static final int BUTTON_CLASS = 1;
+	
 	PopupWindow window = new PopupWindow();
-	int kind;
-	LinearLayout buttonLayout;
 	View anchor;
+	int xOffset = 0;
+	int yOffset = 0;
 	ViewGroup.LayoutParams params;
-	Activity c;
 	ViewGroup desktop;
-	int x, y;
 	
-	Picker(Activity c, View anchor, int x, int y)
+	Context context;
+	
+	Picker(Context context, View anchor, ViewGroup parent)
 	{
+		super(context);
 		this.anchor = anchor;
-		this.c = c;
-		this.x = x;
-		this.y = y;
-		this.desktop = (ViewGroup)c.findViewById(R.id.desktop);
-	}
-	
-	Picker(Activity c, View anchor, int x, int y, int kind)
-	{
-		this(c, anchor, x, y);
-		this.kind = kind;
-		setType(kind);
-		
-		buttonLayout.setOrientation(LinearLayout.HORIZONTAL);
-		
-		window.setContentView(buttonLayout);
+		this.context = context;
+		this.desktop = parent;
+		setOrientation(LinearLayout.HORIZONTAL);
+		window.setContentView(this);
 		window.setTouchable(true);
 		window.setHeight(LayoutParams.WRAP_CONTENT);
 		window.setWidth(LayoutParams.WRAP_CONTENT);
@@ -42,104 +33,61 @@ public class Picker
 		publish();
 	}
 	
-	void publish()
-	{
-		window.showAsDropDown(anchor, x, y);
-	}
-	
-	void setType(int kind)
-	{
-		buttonLayout = new LinearLayout(c);
-		
-		if (kind == JavaEntity.TOP_LEVEL_ENTITY)
-		{
-			Button bClass = makeButton(c, "class");
-			bClass.setOnClickListener(onButtonClassClick);
-			Button bActivity = makeButton(c, "activity");
-			bActivity.setOnClickListener(onButtonActivityClick);
-			Button bResource = makeButton(c, "resource");
-			bResource.setOnClickListener(onButtonResourceClick);
-
-			buttonLayout.addView(bClass);
-			buttonLayout.addView(bActivity);
-			buttonLayout.addView(bResource);
-		}
-		else if (kind == JavaEntity.XML_ENTITY)
-		{
-			Button bView= makeButton(c, "view");
-			bView.setOnClickListener(onButtonViewClick);
-			Button bWidget= makeButton(c, "widget");
-			bWidget.setOnClickListener(onButtonWidgetClick);
-
-			buttonLayout.addView(bView);
-			buttonLayout.addView(bWidget);
-		}
-		else
-		{
-			TextView tv = new TextView(c);
-			tv.setText("oops");
-			buttonLayout.addView(tv);
-		}
-	}
-	
-	Button makeButton(Activity context, String name)
+	public void addNewButton(String text, int id)
 	{
 		Button b = new Button(context);
-		b.setText(name);
-		return b;
+		b.setText(text);
+		b.setId(id);
+		b.setOnClickListener(onButtonClick);
+		addView(b);
 	}
 	
-	View.OnClickListener onButtonClassClick = new View.OnClickListener()
+	void dismiss()
 	{
-		@Override
-		public void onClick(View p1)
-		{
-			ClassModule jclass = new ClassModule(c);
-			ConstructorModule jconstruct = new ConstructorModule(c);
-			jclass.addModule(jconstruct);
-			desktop.addView(jclass);
-			window.dismiss();
-		}
-	};
+		window.dismiss();
+	}
 	
-	View.OnClickListener onButtonActivityClick = new View.OnClickListener()
+	boolean isShowing()
 	{
-		@Override
-		public void onClick(View p1)
-		{
-			JavaEntity.createActivity();
-			window.dismiss();
-		}
-	};
+		return window.isShowing();
+	}
 	
-	View.OnClickListener onButtonResourceClick = new View.OnClickListener()
+	void publish()
 	{
-		@Override
-		public void onClick(View p1)
-		{
-			JavaEntity.createResource();
-			window.dismiss();
-		}
-	};
+		// not sure about these names
+		window.showAsDropDown(anchor, xOffset, yOffset);
+	}
 	
-	View.OnClickListener onButtonViewClick = new View.OnClickListener()
+	@Override
+	public void setX(float xPos)
 	{
-		@Override
-		public void onClick(View p1)
-		{
-			//implement
-			window.dismiss();
-		}
-	};
+		xOffset = Math.round(xPos);
+	}
 	
-	View.OnClickListener onButtonWidgetClick = new View.OnClickListener()
+	@Override
+	public void setY(float yPos)
+	{
+		yOffset = Math.round(yPos);
+	}
+	
+	
+	View.OnClickListener onButtonClick = new View.OnClickListener()
 	{
 		@Override
-		public void onClick(View p1)
+		public void onClick(View button)
 		{
-			//implement
-			//JavaEntity.create??
-			window.dismiss();
+			if (button.getId() == BUTTON_CLASS)
+			{
+				ClassModule jclass = new ClassModule(context);
+				ConstructorModule jconstruct = new ConstructorModule(context);
+				jclass.addModule(jconstruct);
+				desktop.addView(jclass);
+				dismiss();
+			}
+			else
+			{
+				OverviewActivity.popMesg(context, "not implemented");
+			}
 		}
 	};
 }
