@@ -7,14 +7,20 @@ import gatchipatchi.appmaker.modules.*;
 
 public class Picker extends LinearLayout
 {
+	// move this functionality somewhere else
 	static final int BUTTON_CLASS = 1;
 	
 	PopupWindow window = new PopupWindow();
 	View anchor;
-	int xOffset = 0;
-	int yOffset = 0;
 	ViewGroup.LayoutParams params;
-	ViewGroup desktop;
+	ViewGroup desktop; // remove the need for this object
+	int xPos = 0;
+	int yPos = 0;
+	
+	// these need to position the middle of the view,
+	// not the top left
+	int xOffset = -150;
+	int yOffset = -80;
 	
 	Context context;
 	
@@ -55,19 +61,21 @@ public class Picker extends LinearLayout
 	void publish()
 	{
 		// not sure about these names
-		window.showAsDropDown(anchor, xOffset, yOffset);
+		window.showAsDropDown(anchor, xPos + xOffset, yPos + yOffset);
 	}
 	
 	@Override
 	public void setX(float xPos)
 	{
-		xOffset = Math.round(xPos);
+		this.xPos = Math.round(xPos);
+		this.xOffset = 0 - this.getWidth() / 2;
 	}
 	
 	@Override
 	public void setY(float yPos)
 	{
-		yOffset = Math.round(yPos);
+		this.yPos = Math.round(yPos);
+		this.yOffset = 0 - this.getHeight();
 	}
 	
 	
