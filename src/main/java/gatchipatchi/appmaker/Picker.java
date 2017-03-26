@@ -3,7 +3,7 @@ import android.app.*;
 import android.content.*;
 import android.view.*;
 import android.widget.*;
-import gatchipatchi.appmaker.modules.*;
+import gatchipatchi.appmaker.models.*;
 
 public class Picker extends LinearLayout
 {
@@ -86,7 +86,7 @@ public class Picker extends LinearLayout
 		{
 			if (button.getId() == BUTTON_CLASS)
 			{
-				ClassModule mClass = new ClassModule(context);
+				ClassModel mClass = new ClassModel(context);
 				mClass.buildConstructor();
 				desktop.addView(mClass);
 				dismiss();

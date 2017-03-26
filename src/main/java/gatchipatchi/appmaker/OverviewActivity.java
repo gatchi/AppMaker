@@ -5,7 +5,7 @@ import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
-import gatchipatchi.appmaker.modules.*;
+import gatchipatchi.appmaker.models.*;
 import org.apache.http.client.utils.*; 
 
 public class OverviewActivity extends Activity 
