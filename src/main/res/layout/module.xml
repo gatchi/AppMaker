@@ -2,13 +2,12 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
 	android:padding="2px"
-	android:background="@drawable/module_border">
+	android:background="@drawable/border">
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="class"
-		android:textColor="@color/red"
 		android:visibility="visible"/>
 
 </RelativeLayout>
