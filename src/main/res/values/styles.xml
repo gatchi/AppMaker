@@ -2,4 +2,8 @@
 <resources>
     <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
 	</style>
+	<style name="Bordered" parent="AppTheme">
+		<item name="android:padding">2px</item>
+		<item name="android:background">@drawable/border</item>
+	</style>
 </resources>
