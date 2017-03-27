@@ -10,6 +10,8 @@ import org.apache.http.client.utils.*;
 
 public class OverviewActivity extends Activity 
 {
+	static final int BUTTON_CLASS = 1;
+	
 	Picker picker;
 	View anchor;
 	ViewGroup desktop;
@@ -26,9 +28,9 @@ public class OverviewActivity extends Activity
 		welcomeMessage = findViewById(R.id.welcome_message);
 		
 		picker = new Picker(this, anchor, desktop);
-		picker.addNewButton("class", Picker.BUTTON_CLASS);
-		picker.addNewButton("activity", 0);  // not implemented
-		picker.addNewButton("resource", 0);  // not implemented
+		picker.addNewButton("class", BUTTON_CLASS, onButtonClickListener);
+		picker.addNewButton("activity", 0, onButtonClickListener);  // not implemented
+		picker.addNewButton("resource", 0, onButtonClickListener);  // not implemented
 		desktop.setOnTouchListener(deskTouchListener);
     }
 
@@ -45,6 +47,25 @@ public class OverviewActivity extends Activity
 		b.setId(id);
 		return b;
 	}
+	
+	View.OnClickListener onButtonClickListener = new View.OnClickListener()
+	{
+		@Override
+		public void onClick(View button)
+		{
+			if (button.getId() == BUTTON_CLASS)
+			{
+				ClassModel mClass = new ClassModel(OverviewActivity.this);
+				mClass.buildConstructor();
+				desktop.addView(mClass);
+				picker.dismiss();
+			}
+			else
+			{
+				OverviewActivity.popMesg(OverviewActivity.this, "not implemented");
+			}
+		}
+	};
 	
 	View.OnTouchListener deskTouchListener = new View.OnTouchListener() 
 	{

@@ -7,9 +7,6 @@ import gatchipatchi.appmaker.models.*;
 
 public class Picker extends LinearLayout
 {
-	// move this functionality somewhere else
-	static final int BUTTON_CLASS = 1;
-	
 	PopupWindow window = new PopupWindow();
 	View anchor;
 	ViewGroup.LayoutParams params;
@@ -38,12 +35,12 @@ public class Picker extends LinearLayout
 		window.setOutsideTouchable(true);
 	}
 	
-	public void addNewButton(String text, int id)
+	public void addNewButton(String text, int id, View.OnClickListener l)
 	{
 		Button b = new Button(context);
 		b.setText(text);
 		b.setId(id);
-		b.setOnClickListener(onButtonClick);
+		b.setOnClickListener(l);
 		addView(b);
 	}
 	
@@ -76,24 +73,4 @@ public class Picker extends LinearLayout
 		this.yPos = Math.round(yPos);
 		this.yOffset = 0 - this.getHeight();
 	}
-	
-	
-	View.OnClickListener onButtonClick = new View.OnClickListener()
-	{
-		@Override
-		public void onClick(View button)
-		{
-			if (button.getId() == BUTTON_CLASS)
-			{
-				ClassModel mClass = new ClassModel(context);
-				mClass.buildConstructor();
-				desktop.addView(mClass);
-				dismiss();
-			}
-			else
-			{
-				OverviewActivity.popMesg(context, "not implemented");
-			}
-		}
-	};
 }
