@@ -72,7 +72,7 @@ public class OverviewActivity extends Activity
 		@Override
 		public boolean onTouch(View v, MotionEvent e)
 		{
-			if (e.getAction() == MotionEvent.ACTION_DOWN)
+			if (e.getAction() == MotionEvent.ACTION_UP)
 			{
 				clearHint();
 				
