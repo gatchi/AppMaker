@@ -1,12 +1,21 @@
 package gatchipatchi.appmaker;
-import android.app.*;
 import android.content.*;
+import android.graphics.*;
 import android.view.*;
 import android.widget.*;
-import gatchipatchi.appmaker.models.*;
 
 public class Picker extends LinearLayout
 {
+	class PickerButton extends Button
+	{
+		PickerButton()
+		{
+			super(context);
+			this.setBackground(context.getResources().getDrawable(R.drawable.border));
+			this.setTextColor(Color.parseColor("#555555"));
+		}
+	}
+	
 	PopupWindow window = new PopupWindow();
 	View anchor;
 	ViewGroup.LayoutParams params;
@@ -35,10 +44,11 @@ public class Picker extends LinearLayout
 	
 	public void addNewButton(String text, int id, View.OnClickListener l)
 	{
-		Button b = new Button(context);
+		Button b = new PickerButton();
 		b.setText(text);
 		b.setId(id);
 		b.setOnClickListener(l);
+		//b.setBackground(context.getResources().getDrawable(R.drawable.border));
 		addView(b);
 	}
 	
