@@ -27,7 +27,7 @@ public class OverviewActivity extends Activity
 		desktop = (ViewGroup)findViewById(R.id.desktop);
 		welcomeMessage = findViewById(R.id.welcome_message);
 		
-		picker = new Picker(this, anchor, desktop);
+		picker = new Picker(this, anchor);
 		picker.addNewButton("class", BUTTON_CLASS, onButtonClickListener);
 		picker.addNewButton("activity", 0, onButtonClickListener);  // not implemented
 		picker.addNewButton("resource", 0, onButtonClickListener);  // not implemented

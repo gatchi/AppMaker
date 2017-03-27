@@ -10,23 +10,21 @@ public class Picker extends LinearLayout
 	PopupWindow window = new PopupWindow();
 	View anchor;
 	ViewGroup.LayoutParams params;
-	ViewGroup desktop; // remove the need for this object
 	int xPos = 0;
 	int yPos = 0;
 	
 	// these need to position the middle of the view,
 	// not the top left
-	int xOffset = -150;
-	int yOffset = -80;
+	int xOffset;
+	int yOffset;
 	
 	Context context;
 	
-	Picker(Context context, View anchor, ViewGroup parent)
+	Picker(Context context, View anchor)
 	{
 		super(context);
 		this.anchor = anchor;
 		this.context = context;
-		this.desktop = parent;
 		setOrientation(LinearLayout.HORIZONTAL);
 		window.setContentView(this);
 		window.setTouchable(true);
@@ -56,21 +54,20 @@ public class Picker extends LinearLayout
 	
 	void publish()
 	{
-		// not sure about these names
+		this.xOffset = 0 - this.getWidth() / 2;
+		this.yOffset = 0 - this.getHeight();
 		window.showAsDropDown(anchor, xPos + xOffset, yPos + yOffset);
 	}
 	
 	@Override
-	public void setX(float xPos)
+	public void setX(float xTouchPos)
 	{
-		this.xPos = Math.round(xPos);
-		this.xOffset = 0 - this.getWidth() / 2;
+		this.xPos = Math.round(xTouchPos);
 	}
 	
 	@Override
-	public void setY(float yPos)
+	public void setY(float yTouchPos)
 	{
-		this.yPos = Math.round(yPos);
-		this.yOffset = 0 - this.getHeight();
+		this.yPos = Math.round(yTouchPos);
 	}
 }
