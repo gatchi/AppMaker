@@ -36,7 +36,6 @@ public class Picker extends LinearLayout
 		window.setHeight(LayoutParams.WRAP_CONTENT);
 		window.setWidth(LayoutParams.WRAP_CONTENT);
 		window.setOutsideTouchable(true);
-		publish();
 	}
 	
 	public void addNewButton(String text, int id)

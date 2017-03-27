@@ -21,11 +21,15 @@ public class OverviewActivity extends Activity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.component_layout);
 		
-		desktop = (ViewGroup)findViewById(R.id.desktop);
-		desktop.setOnTouchListener(deskTouchListener);
-		
 		anchor = findViewById(R.id.anchor);
+		desktop = (ViewGroup)findViewById(R.id.desktop);
 		welcomeMessage = findViewById(R.id.welcome_message);
+		
+		picker = new Picker(this, anchor, desktop);
+		picker.addNewButton("class", Picker.BUTTON_CLASS);
+		picker.addNewButton("activity", 0);  // not implemented
+		picker.addNewButton("resource", 0);  // not implemented
+		desktop.setOnTouchListener(deskTouchListener);
     }
 
 	void clearHint()
@@ -42,7 +46,6 @@ public class OverviewActivity extends Activity
 		return b;
 	}
 	
-	
 	View.OnTouchListener deskTouchListener = new View.OnTouchListener() 
 	{
 		@Override
@@ -51,14 +54,6 @@ public class OverviewActivity extends Activity
 			if (e.getAction() == MotionEvent.ACTION_DOWN)
 			{
 				clearHint();
-				
-				if (picker == null)
-				{
-					picker = new Picker(OverviewActivity.this, anchor, desktop);
-					picker.addNewButton("class", Picker.BUTTON_CLASS);
-					picker.addNewButton("activity", 0);  // not implemented
-					picker.addNewButton("resource", 0);  // not implemented
-				}
 				
 				if (picker.isShowing())
 					picker.dismiss();
