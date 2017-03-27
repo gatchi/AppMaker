@@ -10,7 +10,7 @@ import org.apache.http.client.utils.*;
 
 public class OverviewActivity extends Activity 
 {
-	static final int BUTTON_CLASS = 1;
+	static final int CLASS_BUTTON = 1;
 	
 	Picker picker;
 	View anchor;
@@ -28,7 +28,7 @@ public class OverviewActivity extends Activity
 		welcomeMessage = findViewById(R.id.welcome_message);
 		
 		picker = new Picker(this, anchor);
-		picker.addNewButton("class", BUTTON_CLASS, onButtonClickListener);
+		picker.addNewButton("class", CLASS_BUTTON, onButtonClickListener);
 		picker.addNewButton("activity", 0, onButtonClickListener);  // not implemented
 		picker.addNewButton("resource", 0, onButtonClickListener);  // not implemented
 		desktop.setOnTouchListener(deskTouchListener);
@@ -53,7 +53,7 @@ public class OverviewActivity extends Activity
 		@Override
 		public void onClick(View button)
 		{
-			if (button.getId() == BUTTON_CLASS)
+			if (button.getId() == CLASS_BUTTON)
 			{
 				ClassModel mClass = new ClassModel(OverviewActivity.this);
 				mClass.buildConstructor();
