@@ -12,6 +12,8 @@ public class ClassModel extends Model
 	String modelType = "class";
 	Context context;
 	
+	Stack<ClassModel> nestedClassList = new Stack<ClassModel>();
+	Stack<ConstructorModel> constructorList = new Stack<ConstructorModel>();
 	int nameId;
 	
 	public ClassModel(Context context)
@@ -37,12 +39,34 @@ public class ClassModel extends Model
 		this.context = context;
 	}
 	
-	public void buildConstructor()
+	public void addConstructor(ConstructorModel mConstruct)
+	{
+		constructorList.push(mConstruct);
+	}
+	
+	public void addClass(ClassModel mClass)
+	{
+		if (nestedClassList.isEmpty())
+			addModel(constructorList.get(0).getId(), mClass);
+		else
+			addModel(getLastClass().getId(), mClass);
+		nestedClassList.push(mClass);
+	}
+	
+	public void buildDefaultConstructor()
 	{
 		ConstructorModel mConstruct = new ConstructorModel(context);
-		RelativeLayout.LayoutParams constructParams = (RelativeLayout.LayoutParams) generateDefaultLayoutParams();
-		constructParams.addRule(RelativeLayout.BELOW, nameId);
-		mConstruct.setLayoutParams(constructParams);
-		addView(mConstruct);
+		addModel(nameId, mConstruct);
+		constructorList.push(mConstruct);
+	}
+	
+	ClassModel getLastClass()
+	{
+		return nestedClassList.peek();
+	}
+	
+	ConstructorModel getLastConstructor()
+	{
+		return constructorList.peek();
 	}
 }
