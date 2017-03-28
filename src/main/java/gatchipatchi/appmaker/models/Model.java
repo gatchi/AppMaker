@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Model extends RelativeLayout
 {
-	ViewGroup.LayoutParams layoutParams;
+	RelativeLayout.LayoutParams layoutParams;
 	GradientDrawable border = new GradientDrawable();
 	int borderWidth = 2;
 	int defaultColor = Color.GRAY;
@@ -24,11 +24,11 @@ public class Model extends RelativeLayout
 		this.setBackground(setBorderColor(defaultColor));
 	}
 	
-	public static ViewGroup.LayoutParams generateLayoutParams()
+	public static RelativeLayout.LayoutParams generateLayoutParams()
 	{
-		int w = ViewGroup.LayoutParams.WRAP_CONTENT;
-		int h = ViewGroup.LayoutParams.WRAP_CONTENT;
-		return new ViewGroup.LayoutParams(w, h);
+		int w = RelativeLayout.LayoutParams.WRAP_CONTENT;
+		int h = RelativeLayout.LayoutParams.WRAP_CONTENT;
+		return new RelativeLayout.LayoutParams(w, h);
 	}
 	
 	public void addModule(Model child)
