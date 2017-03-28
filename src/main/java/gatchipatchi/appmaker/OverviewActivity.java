@@ -56,7 +56,7 @@ public class OverviewActivity extends Activity
 			if (button.getId() == CLASS_BUTTON)
 			{
 				ClassModel mClass = new ClassModel(OverviewActivity.this);
-				mClass.buildConstructor();
+				mClass.buildDefaultConstructor();
 				desktop.addView(mClass);
 				picker.dismiss();
 			}

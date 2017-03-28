@@ -22,6 +22,7 @@ public class Model extends RelativeLayout
 		this.setPadding(8,2,4,4);
 		layoutParams = Model.generateLayoutParams();
 		this.setBackground(setBorderColor(defaultColor));
+		setId(generateViewId());
 	}
 	
 	public static RelativeLayout.LayoutParams generateLayoutParams()
@@ -31,9 +32,13 @@ public class Model extends RelativeLayout
 		return new RelativeLayout.LayoutParams(w, h);
 	}
 	
-	public void addModule(Model child)
+	public void addModel(int anchorId, Model child)
 	{
-		this.addView(child);
+		addView(child);
+		RelativeLayout.LayoutParams childParams;
+		childParams = (RelativeLayout.LayoutParams)child.getLayoutParams();
+		childParams.addRule(RelativeLayout.BELOW, anchorId);
+		child.setLayoutParams(childParams);
 	}
 	
 	public GradientDrawable setBorderColor(int color)
