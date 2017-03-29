@@ -11,13 +11,11 @@ public class ConstructorModel extends Model
 	public ConstructorModel(Context context)
 	{
 		super(context);
-
-		this.setBackground(setBorderColor(Color.BLACK));
-		this.setWidth(LayoutParams.FILL_PARENT);
+		setBackground(setBorderColor(Color.BLACK));
 
 		TextView name = new TextView(context);
 		name.setText(moduleType);
 		name.setTextColor(Color.BLACK);
-		this.addView(name);
+		addView(name);
 	}
 }

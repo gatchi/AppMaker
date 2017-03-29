@@ -6,7 +6,8 @@ import android.os.*;
 import android.view.*;
 import android.widget.*;
 import gatchipatchi.appmaker.models.*;
-import org.apache.http.client.utils.*; 
+import org.apache.http.client.utils.*;
+import android.widget.LinearLayout.*; 
 
 public class OverviewActivity extends Activity 
 {
@@ -56,7 +57,14 @@ public class OverviewActivity extends Activity
 			if (button.getId() == CLASS_BUTTON)
 			{
 				ClassModel mClass = new ClassModel(OverviewActivity.this);
-				mClass.buildDefaultConstructor();
+				ConstructorModel mConstruct = new ConstructorModel(OverviewActivity.this);
+				LayoutParams pClass = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				pClass.setLayoutDirection(LinearLayout.VERTICAL);
+				LayoutParams pConstruct = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+				mClass.addConstructor(mConstruct);
+				mConstruct.setLayoutParams(pConstruct);
+				mClass.setLayoutParams(pClass);
+				mClass.setOrientation(LinearLayout.VERTICAL);
 				desktop.addView(mClass);
 				picker.dismiss();
 			}
@@ -80,7 +88,6 @@ public class OverviewActivity extends Activity
 					picker.dismiss();
 				else
 				{
-					// consider replacing next three lines with updatePos() method
 					picker.setX(e.getX());
 					picker.setY(e.getY());
 					picker.publish();

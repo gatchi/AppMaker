@@ -22,8 +22,7 @@ public class ClassModel extends Model
 		
 		this.setBackground(setBorderColor(Color.RED));
 		this.setMinimumHeight(100);
-		this.setMinimumWidth(100);
-		setWidth(RelativeLayout.LayoutParams.WRAP_CONTENT);
+		this.setMinimumWidth(200);
 		
 		TextView name = new TextView(context);
 		name.setText(modelType);
@@ -41,6 +40,8 @@ public class ClassModel extends Model
 	
 	public void addConstructor(ConstructorModel mConstruct)
 	{
+		if (constructorList.isEmpty())
+			addModel(nameId, mConstruct);
 		constructorList.push(mConstruct);
 	}
 	
