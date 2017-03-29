@@ -13,9 +13,7 @@ public class ConstructorModel extends Model
 		super(context);
 		setBackground(setBorderColor(Color.BLACK));
 
-		TextView name = new TextView(context);
 		name.setText(moduleType);
 		name.setTextColor(Color.BLACK);
-		addView(name);
 	}
 }

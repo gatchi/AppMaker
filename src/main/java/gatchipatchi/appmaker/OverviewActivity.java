@@ -5,9 +5,9 @@ import android.content.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
+import android.widget.LinearLayout.*;
 import gatchipatchi.appmaker.models.*;
-import org.apache.http.client.utils.*;
-import android.widget.LinearLayout.*; 
+import java.util.*; 
 
 public class OverviewActivity extends Activity 
 {
@@ -17,6 +17,8 @@ public class OverviewActivity extends Activity
 	View anchor;
 	ViewGroup desktop;
 	View welcomeMessage;
+	ArrayList<Integer> displayedNames = new ArrayList<Integer>();
+	boolean namesAreVisible = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -29,9 +31,9 @@ public class OverviewActivity extends Activity
 		welcomeMessage = findViewById(R.id.welcome_message);
 		
 		picker = new Picker(this, anchor);
-		picker.addNewButton("class", CLASS_BUTTON, onButtonClickListener);
-		picker.addNewButton("activity", 0, onButtonClickListener);  // not implemented
-		picker.addNewButton("resource", 0, onButtonClickListener);  // not implemented
+		picker.addNewButton("class", CLASS_BUTTON, pickerListener);
+		picker.addNewButton("activity", 0, pickerListener);  // not implemented
+		picker.addNewButton("resource", 0, pickerListener);  // not implemented
 		desktop.setOnTouchListener(deskTouchListener);
     }
 
@@ -49,7 +51,30 @@ public class OverviewActivity extends Activity
 		return b;
 	}
 	
-	View.OnClickListener onButtonClickListener = new View.OnClickListener()
+	public void toggleNames(View view)
+	{
+		View v;
+		if (namesAreVisible)
+		{
+			for(int i=0; i<displayedNames.size(); i++)
+			{
+				v = findViewById(displayedNames.get(i));
+				v.setVisibility(View.GONE);
+			}
+			namesAreVisible = false;
+		}
+		else
+		{
+			for(int i=0; i<displayedNames.size(); i++)
+			{
+				v = findViewById(displayedNames.get(i));
+				v.setVisibility(View.VISIBLE);
+			}
+			namesAreVisible = true;
+		}
+	}
+	
+	View.OnClickListener pickerListener = new View.OnClickListener()
 	{
 		@Override
 		public void onClick(View button)
@@ -57,7 +82,9 @@ public class OverviewActivity extends Activity
 			if (button.getId() == CLASS_BUTTON)
 			{
 				ClassModel mClass = new ClassModel(OverviewActivity.this);
+				displayedNames.add(mClass.getNameId());
 				ConstructorModel mConstruct = new ConstructorModel(OverviewActivity.this);
+				displayedNames.add(mConstruct.getNameId());
 				LayoutParams pClass = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 				pClass.setLayoutDirection(LinearLayout.VERTICAL);
 				LayoutParams pConstruct = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);

@@ -9,6 +9,9 @@ import java.util.*;
 
 public class Model extends LinearLayout
 {
+	TextView name;
+	int nameId;
+	
 	GradientDrawable border = new GradientDrawable();
 	int borderWidth = 2;
 	int defaultColor = Color.GRAY;
@@ -21,6 +24,11 @@ public class Model extends LinearLayout
 		this.setPadding(8,2,4,4);
 		this.setBackground(setBorderColor(defaultColor));
 		setId(generateViewId());
+		nameId = generateViewId();
+		
+		name = new TextView(context);
+		name.setId(nameId);
+		this.addView(name);
 	}
 	
 	void addModel(int anchorId, Model child)
@@ -40,6 +48,11 @@ public class Model extends LinearLayout
 //		childParams.addRule(RelativeLayout.BELOW, anchorId);
 //		child.setLayoutParams(childParams);
 //	}
+	
+	public int getNameId()
+	{
+		return nameId;
+	}
 	
 	public GradientDrawable setBorderColor(int color)
 	{

@@ -14,7 +14,6 @@ public class ClassModel extends Model
 	
 	Stack<ClassModel> nestedClassList = new Stack<ClassModel>();
 	Stack<ConstructorModel> constructorList = new Stack<ConstructorModel>();
-	int nameId;
 	
 	public ClassModel(Context context)
 	{
@@ -24,12 +23,8 @@ public class ClassModel extends Model
 		this.setMinimumHeight(100);
 		this.setMinimumWidth(200);
 		
-		TextView name = new TextView(context);
 		name.setText(modelType);
 		name.setTextColor(Color.RED);
-		nameId = generateViewId();
-		name.setId(nameId);
-		this.addView(name);
 		
 		canContain.add("class");
 		canContain.add("method");
