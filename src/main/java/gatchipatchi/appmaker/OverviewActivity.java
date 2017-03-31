@@ -2,6 +2,8 @@ package gatchipatchi.appmaker;
 
 import android.app.*;
 import android.content.*;
+import android.graphics.*;
+import android.graphics.drawable.*;
 import android.os.*;
 import android.view.*;
 import android.widget.*;
@@ -12,6 +14,18 @@ import java.util.*;
 public class OverviewActivity extends Activity 
 {
 	static final int CLASS_BUTTON = 1;
+	
+	class Box extends LinearLayout
+	{
+		Box(Context context, int borderColor)
+		{
+			super(context);
+			GradientDrawable border = (GradientDrawable)getResources().getDrawable(R.drawable.border);
+			setBackgroundDrawable(border);
+			border.setStroke(2, borderColor);
+			setOrientation(VERTICAL);
+		}
+	}
 	
 	Picker picker;
 	View anchor;
@@ -81,18 +95,12 @@ public class OverviewActivity extends Activity
 		{
 			if (button.getId() == CLASS_BUTTON)
 			{
+				Box classBox = new Box(OverviewActivity.this, Color.RED);
+				classBox.setMinimumHeight(100);
+				classBox.setMinimumWidth(200);
 				ClassModel mClass = new ClassModel(OverviewActivity.this);
-				displayedNames.add(mClass.getNameId());
-				ConstructorModel mConstruct = new ConstructorModel(OverviewActivity.this);
-				displayedNames.add(mConstruct.getNameId());
 				LayoutParams pClass = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				pClass.setLayoutDirection(LinearLayout.VERTICAL);
-				LayoutParams pConstruct = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
-				mClass.addConstructor(mConstruct);
-				mConstruct.setLayoutParams(pConstruct);
-				mClass.setLayoutParams(pClass);
-				mClass.setOrientation(LinearLayout.VERTICAL);
-				desktop.addView(mClass);
+				desktop.addView(classBox);
 				picker.dismiss();
 			}
 			else

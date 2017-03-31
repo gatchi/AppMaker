@@ -28,6 +28,7 @@
 		android:layout_alignParentTop="true"
 		android:layout_alignParentRight="true"
 		android:text="text"
+		android:visibility="gone"
 		android:onClick="toggleNames"
 		style="@style/Bordered"/>
 

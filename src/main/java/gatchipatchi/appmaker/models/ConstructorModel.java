@@ -10,10 +10,5 @@ public class ConstructorModel extends Model
 
 	public ConstructorModel(Context context)
 	{
-		super(context);
-		setBackground(setBorderColor(Color.BLACK));
-
-		name.setText(moduleType);
-		name.setTextColor(Color.BLACK);
 	}
 }

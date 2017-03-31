@@ -17,15 +17,6 @@ public class ClassModel extends Model
 	
 	public ClassModel(Context context)
 	{
-		super(context);
-		
-		this.setBackground(setBorderColor(Color.RED));
-		this.setMinimumHeight(100);
-		this.setMinimumWidth(200);
-		
-		name.setText(modelType);
-		name.setTextColor(Color.RED);
-		
 		canContain.add("class");
 		canContain.add("method");
 		canContain.add("constructor");
@@ -33,28 +24,28 @@ public class ClassModel extends Model
 		this.context = context;
 	}
 	
-	public void addConstructor(ConstructorModel mConstruct)
-	{
-		if (constructorList.isEmpty())
-			addModel(nameId, mConstruct);
-		constructorList.push(mConstruct);
-	}
-	
-	public void addClass(ClassModel mClass)
-	{
-		if (nestedClassList.isEmpty())
-			addModel(constructorList.get(0).getId(), mClass);
-		else
-			addModel(getLastClass().getId(), mClass);
-		nestedClassList.push(mClass);
-	}
-	
-	public void buildDefaultConstructor()
-	{
-		ConstructorModel mConstruct = new ConstructorModel(context);
-		addModel(nameId, mConstruct);
-		constructorList.push(mConstruct);
-	}
+//	public void addConstructor(ConstructorModel mConstruct)
+//	{
+//		if (constructorList.isEmpty())
+//			addModel(nameId, mConstruct);
+//		constructorList.push(mConstruct);
+//	}
+//	
+//	public void addClass(ClassModel mClass)
+//	{
+//		if (nestedClassList.isEmpty())
+//			addModel(constructorList.get(0).getId(), mClass);
+//		else
+//			addModel(getLastClass().getId(), mClass);
+//		nestedClassList.push(mClass);
+//	}
+//	
+//	public void buildDefaultConstructor()
+//	{
+//		ConstructorModel mConstruct = new ConstructorModel(context);
+//		addModel(nameId, mConstruct);
+//		constructorList.push(mConstruct);
+//	}
 	
 	ClassModel getLastClass()
 	{
