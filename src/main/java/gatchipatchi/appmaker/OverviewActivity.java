@@ -44,7 +44,7 @@ public class OverviewActivity extends Activity
 		desktop = (ViewGroup)findViewById(R.id.desktop);
 		welcomeMessage = findViewById(R.id.welcome_message);
 		
-		picker = new Picker(this, anchor);
+		picker = new Picker(this, anchor, desktop);
 		picker.addNewButton("class", CLASS_BUTTON, pickerListener);
 		picker.addNewButton("activity", 0, pickerListener);  // not implemented
 		picker.addNewButton("resource", 0, pickerListener);  // not implemented
@@ -98,9 +98,10 @@ public class OverviewActivity extends Activity
 				Box classBox = new Box(OverviewActivity.this, Color.RED);
 				classBox.setMinimumHeight(100);
 				classBox.setMinimumWidth(200);
-				ClassModel mClass = new ClassModel(OverviewActivity.this);
-				LayoutParams pClass = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				desktop.addView(classBox);
+				
+				Picker.PickerButton pb = (Picker.PickerButton)button;
+				ViewGroup target = pb.getTarget();
+				target.addView(classBox);
 				picker.dismiss();
 			}
 			else

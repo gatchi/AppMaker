@@ -3,6 +3,7 @@ import android.content.*;
 import android.graphics.*;
 import android.view.*;
 import android.widget.*;
+import java.lang.annotation.*;
 
 public class Picker extends LinearLayout
 {
@@ -14,25 +15,29 @@ public class Picker extends LinearLayout
 			this.setBackground(context.getResources().getDrawable(R.drawable.border));
 			this.setTextColor(Color.parseColor("#555555"));
 		}
+		
+		public ViewGroup getTarget()
+		{
+			return target;
+		}
 	}
 	
 	PopupWindow window = new PopupWindow();
 	View anchor;
+	ViewGroup target;
 	ViewGroup.LayoutParams params;
 	int xPos = 0;
 	int yPos = 0;
-	
-	// these need to position the middle of the view,
-	// not the top left
 	int xOffset;
 	int yOffset;
 	
 	Context context;
 	
-	Picker(Context context, View anchor)
+	Picker(Context context, View anchor, ViewGroup target)
 	{
 		super(context);
 		this.anchor = anchor;
+		this.target = target;
 		this.context = context;
 		setOrientation(LinearLayout.HORIZONTAL);
 		window.setContentView(this);
