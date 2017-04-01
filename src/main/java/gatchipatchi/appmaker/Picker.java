@@ -47,11 +47,11 @@ public class Picker extends LinearLayout
 		window.setOutsideTouchable(true);
 	}
 	
-	public void addNewButton(String text, int id, View.OnClickListener l)
+	public void addButton(String text, int buttonId, View.OnClickListener l)
 	{
 		Button b = new PickerButton();
 		b.setText(text);
-		b.setId(id);
+		b.setId(buttonId);
 		b.setOnClickListener(l);
 		//b.setBackground(context.getResources().getDrawable(R.drawable.border));
 		addView(b);

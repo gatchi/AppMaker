@@ -4,7 +4,8 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:padding="4dp"
-	android:id="@+id/desktop">
+	android:id="@+id/main_group"
+	android:background="#aaaaaa">
 	
 	<View
 		android:layout_height="0px"
@@ -22,13 +23,19 @@
 		android:id="@+id/welcome_message"
 		android:gravity="center"/>
 	
+	<View
+		android:layout_height="match_parent"
+		android:layout_width="match_parent"
+		android:id="@+id/desktop"
+		android:background="#efadef"/>
+	
 	<Button
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentRight="true"
 		android:text="text"
-		android:visibility="gone"
+		android:visibility="visible"
 		android:onClick="toggleNames"
 		style="@style/Bordered"/>
 

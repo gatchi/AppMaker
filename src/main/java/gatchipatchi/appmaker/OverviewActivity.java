@@ -17,6 +17,8 @@ public class OverviewActivity extends Activity
 	
 	class Box extends LinearLayout
 	{
+		Picker picker;
+		
 		Box(Context context, int borderColor)
 		{
 			super(context);
@@ -25,11 +27,22 @@ public class OverviewActivity extends Activity
 			border.setStroke(2, borderColor);
 			setOrientation(VERTICAL);
 		}
+		
+		Picker getPicker()
+		{
+			return picker;
+		}
+		
+		void setPicker(Picker picker)
+		{
+			this.picker = picker;
+		}
 	}
 	
-	Picker picker;
+	Picker desktopPicker;
 	View anchor;
-	ViewGroup desktop;
+	ViewGroup mainGroup;
+	View desktop;
 	View welcomeMessage;
 	ArrayList<Integer> displayedNames = new ArrayList<Integer>();
 	boolean namesAreVisible = true;
@@ -41,14 +54,15 @@ public class OverviewActivity extends Activity
         setContentView(R.layout.component_layout);
 		
 		anchor = findViewById(R.id.anchor);
-		desktop = (ViewGroup)findViewById(R.id.desktop);
+		mainGroup = (ViewGroup)findViewById(R.id.main_group);
+		desktop = findViewById(R.id.desktop);
 		welcomeMessage = findViewById(R.id.welcome_message);
 		
-		picker = new Picker(this, anchor, desktop);
-		picker.addNewButton("class", CLASS_BUTTON, pickerListener);
-		picker.addNewButton("activity", 0, pickerListener);  // not implemented
-		picker.addNewButton("resource", 0, pickerListener);  // not implemented
-		desktop.setOnTouchListener(deskTouchListener);
+		desktopPicker = new Picker(this, anchor, mainGroup);
+		desktopPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);
+		desktopPicker.addButton("activity", 0, pickerButtonListener);  // not implemented
+		desktopPicker.addButton("resource", 0, pickerButtonListener);  // not implemented
+		desktop.setOnTouchListener(touchListener);
     }
 
 	void clearHint()
@@ -88,7 +102,7 @@ public class OverviewActivity extends Activity
 		}
 	}
 	
-	View.OnClickListener pickerListener = new View.OnClickListener()
+	View.OnClickListener pickerButtonListener = new View.OnClickListener()
 	{
 		@Override
 		public void onClick(View button)
@@ -99,10 +113,15 @@ public class OverviewActivity extends Activity
 				classBox.setMinimumHeight(100);
 				classBox.setMinimumWidth(200);
 				
+				Picker boxPicker = new Picker(OverviewActivity.this, anchor, classBox);
+				boxPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);
+				classBox.setPicker(boxPicker);
+				classBox.setOnTouchListener(touchListener);
+				
 				Picker.PickerButton pb = (Picker.PickerButton)button;
 				ViewGroup target = pb.getTarget();
 				target.addView(classBox);
-				picker.dismiss();
+				desktopPicker.dismiss();
 			}
 			else
 			{
@@ -111,7 +130,7 @@ public class OverviewActivity extends Activity
 		}
 	};
 	
-	View.OnTouchListener deskTouchListener = new View.OnTouchListener() 
+	View.OnTouchListener touchListener = new View.OnTouchListener() 
 	{
 		@Override
 		public boolean onTouch(View v, MotionEvent e)
@@ -120,13 +139,21 @@ public class OverviewActivity extends Activity
 			{
 				clearHint();
 				
-				if (picker.isShowing())
-					picker.dismiss();
+				Picker p;
+				if (v.getId() == R.id.desktop)
+					p = desktopPicker;
 				else
 				{
-					picker.setX(e.getX());
-					picker.setY(e.getY());
-					picker.publish();
+					Box box = (Box)v;
+					p = box.getPicker();
+				}
+				if (p.isShowing())
+					p.dismiss();
+				else
+				{
+					p.setX(e.getX());
+					p.setY(e.getY());
+					p.publish();
 				}
 			}
 			return true;
