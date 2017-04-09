@@ -24,29 +24,6 @@ public class ClassModel extends Model
 		this.context = context;
 	}
 	
-//	public void addConstructor(ConstructorModel mConstruct)
-//	{
-//		if (constructorList.isEmpty())
-//			addModel(nameId, mConstruct);
-//		constructorList.push(mConstruct);
-//	}
-//	
-//	public void addClass(ClassModel mClass)
-//	{
-//		if (nestedClassList.isEmpty())
-//			addModel(constructorList.get(0).getId(), mClass);
-//		else
-//			addModel(getLastClass().getId(), mClass);
-//		nestedClassList.push(mClass);
-//	}
-//	
-//	public void buildDefaultConstructor()
-//	{
-//		ConstructorModel mConstruct = new ConstructorModel(context);
-//		addModel(nameId, mConstruct);
-//		constructorList.push(mConstruct);
-//	}
-	
 	ClassModel getLastClass()
 	{
 		return nestedClassList.peek();
