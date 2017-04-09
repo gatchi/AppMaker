@@ -7,36 +7,32 @@
 	android:id="@+id/main_group"
 	android:background="#aaaaaa">
 	
-	<View
+	<View android:id="@+id/anchor"
+		android:background="#ffdd22"
 		android:layout_height="0px"
-		android:layout_width="0px"
-		android:id="@+id/anchor"
-		android:background="#ffdd22"/>
+		android:layout_width="0px"/>
 	
-	<TextView
+	<TextView android:id="@+id/welcome_message"
+		android:text="AppMaker"
+		android:textColor="#DDDDDD"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_centerInParent="true"
-		android:text="AppMaker"
-		android:textColor="#DDDDDD"
 		android:textSize="72dp"
-		android:id="@+id/welcome_message"
 		android:gravity="center"/>
 	
-	<View
+	<View android:id="@+id/glasstop"
+		android:background="#efadef22"
 		android:layout_height="match_parent"
-		android:layout_width="match_parent"
-		android:id="@+id/desktop"
-		android:background="#efadef"/>
+		android:layout_width="match_parent"/>
 	
-	<Button
+	<Button android:text="text"
+		android:onClick="toggleNames"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_alignParentTop="true"
 		android:layout_alignParentRight="true"
-		android:text="text"
 		android:visibility="visible"
-		android:onClick="toggleNames"
 		style="@style/Bordered"/>
 
 </RelativeLayout>

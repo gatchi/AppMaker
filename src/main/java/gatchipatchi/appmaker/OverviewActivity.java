@@ -55,7 +55,7 @@ public class OverviewActivity extends Activity
 		
 		anchor = findViewById(R.id.anchor);
 		mainGroup = (ViewGroup)findViewById(R.id.main_group);
-		desktop = findViewById(R.id.desktop);
+		desktop = findViewById(R.id.glasstop);
 		welcomeMessage = findViewById(R.id.welcome_message);
 		
 		desktopPicker = new Picker(this, anchor, mainGroup);
@@ -141,7 +141,7 @@ public class OverviewActivity extends Activity
 				clearHint();
 				
 				Picker p;
-				if (v.getId() == R.id.desktop)
+				if (v.getId() == R.id.glasstop)
 					p = desktopPicker;
 				else
 				{
