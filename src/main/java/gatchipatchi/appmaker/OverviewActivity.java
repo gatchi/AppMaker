@@ -112,6 +112,7 @@ public class OverviewActivity extends Activity
 				Box classBox = new Box(OverviewActivity.this, Color.RED);
 				classBox.setMinimumHeight(100);
 				classBox.setMinimumWidth(200);
+				classBox.setPadding(4,4,4,4);
 				
 				Picker boxPicker = new Picker(OverviewActivity.this, anchor, classBox);
 				boxPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);

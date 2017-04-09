@@ -53,7 +53,6 @@ public class Picker extends LinearLayout
 		b.setText(text);
 		b.setId(buttonId);
 		b.setOnClickListener(l);
-		//b.setBackground(context.getResources().getDrawable(R.drawable.border));
 		addView(b);
 	}
 	
