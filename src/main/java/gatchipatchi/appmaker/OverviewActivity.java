@@ -132,7 +132,9 @@ public class OverviewActivity extends Activity
 				Picker.PickerButton pb = (Picker.PickerButton)button;
 				ViewGroup target = pb.getTarget();
 				target.addView(classBox);
-				desktopPicker.dismiss();
+				
+				Picker srcPicker = (Picker)pb.getParent();
+				srcPicker.dismiss();
 			}
 			else
 			{
@@ -158,6 +160,7 @@ public class OverviewActivity extends Activity
 					Box box = (Box)v;
 					p = box.getPicker();
 				}
+				
 				if (p.isShowing())
 					p.dismiss();
 				else
