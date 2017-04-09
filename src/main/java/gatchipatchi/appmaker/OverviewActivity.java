@@ -18,6 +18,7 @@ public class OverviewActivity extends Activity
 	class Box extends LinearLayout
 	{
 		Picker picker;
+		TextView name;
 		
 		Box(Context context, int borderColor)
 		{
@@ -26,11 +27,19 @@ public class OverviewActivity extends Activity
 			setBackgroundDrawable(border);
 			border.setStroke(2, borderColor);
 			setOrientation(VERTICAL);
+			name = new TextView(context);
+			addView(name);
+			name.setTextColor(Color.RED);
 		}
 		
 		Picker getPicker()
 		{
 			return picker;
+		}
+		
+		void setName(String name)
+		{
+			this.name.setText(name);
 		}
 		
 		void setPicker(Picker picker)
@@ -113,6 +122,7 @@ public class OverviewActivity extends Activity
 				classBox.setMinimumHeight(100);
 				classBox.setMinimumWidth(200);
 				classBox.setPadding(4,4,4,4);
+				classBox.setName("class");
 				
 				Picker boxPicker = new Picker(OverviewActivity.this, anchor, classBox);
 				boxPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);
