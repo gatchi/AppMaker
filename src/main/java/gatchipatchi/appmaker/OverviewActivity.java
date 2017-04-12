@@ -50,8 +50,7 @@ public class OverviewActivity extends Activity
 	
 	Picker desktopPicker;
 	View anchor;
-	ViewGroup mainGroup;
-	View desktop;
+	ViewGroup desktop;
 	View welcomeMessage;
 	ArrayList<Integer> displayedNames = new ArrayList<Integer>();
 	boolean namesAreVisible = true;
@@ -63,17 +62,21 @@ public class OverviewActivity extends Activity
         setContentView(R.layout.component_layout);
 		
 		anchor = findViewById(R.id.anchor);
-		mainGroup = (ViewGroup)findViewById(R.id.main_group);
-		desktop = findViewById(R.id.glasstop);
+		desktop = (ViewGroup)findViewById(R.id.desktop);
 		welcomeMessage = findViewById(R.id.welcome_message);
 		
-		desktopPicker = new Picker(this, anchor, mainGroup);
+		desktopPicker = new Picker(this, anchor, desktop);
 		desktopPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);
 		desktopPicker.addButton("activity", 0, pickerButtonListener);  // not implemented
 		desktopPicker.addButton("resource", 0, pickerButtonListener);  // not implemented
 		desktop.setOnTouchListener(touchListener);
     }
 
+	public void clearDesktop(View v)
+	{
+		desktop.removeAllViews();
+	}
+	
 	void clearHint()
 	{
 		if (welcomeMessage.isShown())
@@ -153,7 +156,7 @@ public class OverviewActivity extends Activity
 				clearHint();
 				
 				Picker p;
-				if (v.getId() == R.id.glasstop)
+				if (v.getId() == R.id.desktop)
 					p = desktopPicker;
 				else
 				{

@@ -21,13 +21,21 @@
 		android:textSize="72dp"
 		android:gravity="center"/>
 	
-	<View android:id="@+id/glasstop"
-		android:background="#efadef22"
+	<LinearLayout android:id="@+id/desktop"
 		android:layout_height="match_parent"
 		android:layout_width="match_parent"/>
 	
 	<Button android:text="text"
 		android:onClick="toggleNames"
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_alignParentRight="true"
+		android:visibility="gone"
+		style="@style/Bordered"/>
+	
+	<Button android:text="clear"
+		android:onClick="clearDesktop"
 		android:layout_height="wrap_content"
 		android:layout_width="wrap_content"
 		android:layout_alignParentTop="true"
