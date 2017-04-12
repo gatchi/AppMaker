@@ -14,11 +14,18 @@ import java.util.*;
 public class OverviewActivity extends Activity 
 {
 	static final int CLASS_BUTTON = 1;
+	Picker desktopPicker;
+	View anchor;
+	ViewGroup desktop;
+	View welcomeMessage;
+	ArrayList<Integer> displayedNames = new ArrayList<Integer>();
+	boolean namesAreVisible = true;
 	
 	class Box extends LinearLayout
 	{
 		Picker picker;
 		TextView name;
+		public LayoutParams boxParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		
 		Box(Context context, int borderColor)
 		{
@@ -30,6 +37,9 @@ public class OverviewActivity extends Activity
 			name = new TextView(context);
 			addView(name);
 			name.setTextColor(Color.RED);
+			name.setPadding(2,0,0,0);
+			boxParams.setMargins(2,2,2,2);
+			setLayoutParams(boxParams);
 		}
 		
 		Picker getPicker()
@@ -48,13 +58,6 @@ public class OverviewActivity extends Activity
 		}
 	}
 	
-	Picker desktopPicker;
-	View anchor;
-	ViewGroup desktop;
-	View welcomeMessage;
-	ArrayList<Integer> displayedNames = new ArrayList<Integer>();
-	boolean namesAreVisible = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
