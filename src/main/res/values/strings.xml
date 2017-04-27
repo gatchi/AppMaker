@@ -3,5 +3,9 @@
 
     <string name="app_name">AppMaker</string>
     <string name="hello_world">Hello world!</string>
+	
+	<string-array name="component_type_list">
+		<item>class</item>
+	</string-array>
 
 </resources>

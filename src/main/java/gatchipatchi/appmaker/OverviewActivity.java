@@ -20,6 +20,7 @@ public class OverviewActivity extends Activity
 	View welcomeMessage;
 	ArrayList<Integer> displayedNames = new ArrayList<Integer>();
 	boolean namesAreVisible = true;
+	FragmentManager fragManager;
 	
 	class Box extends LinearLayout
 	{
@@ -73,11 +74,15 @@ public class OverviewActivity extends Activity
 //		desktopPicker.addButton("activity", 0, pickerButtonListener);  // not implemented
 //		desktopPicker.addButton("resource", 0, pickerButtonListener);  // not implemented
 //		desktop.setOnTouchListener(touchListener);
+		
+		fragManager = getFragmentManager();
     }
 
 	public void addComponent(View v)
 	{
 		popMesg(OverviewActivity.this, "haha");
+		ComponentChooserFragment chooser = new ComponentChooserFragment();
+		chooser.show(fragManager, "uhh");
 	}
 	
 	public void clearDesktop(View v)
@@ -184,6 +189,31 @@ public class OverviewActivity extends Activity
 			return true;
 		}
 	};
+	
+	class ComponentChooserFragment extends DialogFragment
+	{
+		final static int CLASS = 0;
+
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState)
+		{
+			AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
+			b.setTitle("component");
+			b.setItems(R.array.component_type_list, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int selected)
+					{
+						switch(selected)
+						{
+							case CLASS:
+								popMesg(OverviewActivity.this, "lel");
+								break;
+						}
+					}
+				});
+
+			return b.create();
+		}
+	}
 	
 	public static void popMesg(Context context, String mesg)
 	{
