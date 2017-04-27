@@ -2,79 +2,21 @@ package gatchipatchi.appmaker;
 
 import android.app.*;
 import android.content.*;
-import android.graphics.*;
-import android.graphics.drawable.*;
 import android.os.*;
 import android.view.*;
-import android.widget.*;
-import android.widget.LinearLayout.*;
-import gatchipatchi.appmaker.models.*;
-import java.util.*; 
+import android.widget.*; 
 
 public class OverviewActivity extends Activity 
 {
-	static final int CLASS_BUTTON = 1;
-	Picker desktopPicker;
-	View anchor;
 	LinearLayout desktop;
-	View welcomeMessage;
-	ArrayList<Integer> displayedNames = new ArrayList<Integer>();
-	boolean namesAreVisible = true;
 	FragmentManager fragManager;
-	
-	class Box extends LinearLayout
-	{
-		Picker picker;
-		TextView name;
-		public LayoutParams boxParams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		
-		Box(Context context, int borderColor)
-		{
-			super(context);
-			GradientDrawable border = (GradientDrawable)getResources().getDrawable(R.drawable.border);
-			setBackgroundDrawable(border);
-			border.setStroke(2, borderColor);
-			setOrientation(VERTICAL);
-			name = new TextView(context);
-			addView(name);
-			name.setTextColor(Color.RED);
-			name.setPadding(2,0,0,0);
-			boxParams.setMargins(2,2,2,2);
-			setLayoutParams(boxParams);
-		}
-		
-		Picker getPicker()
-		{
-			return picker;
-		}
-		
-		void setName(String name)
-		{
-			this.name.setText(name);
-		}
-		
-		void setPicker(Picker picker)
-		{
-			this.picker = picker;
-		}
-	}
 	
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_layout);
-		
-		//anchor = findViewById(R.id.anchor);
 		desktop = (LinearLayout)findViewById(R.id.desktop);
-		//welcomeMessage = findViewById(R.id.welcome_message);
-		
-//		desktopPicker = new Picker(this, anchor, desktop);
-//		desktopPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);
-//		desktopPicker.addButton("activity", 0, pickerButtonListener);  // not implemented
-//		desktopPicker.addButton("resource", 0, pickerButtonListener);  // not implemented
-//		desktop.setOnTouchListener(touchListener);
-		
 		fragManager = getFragmentManager();
     }
 
@@ -88,12 +30,6 @@ public class OverviewActivity extends Activity
 	{
 		desktop.removeAllViews();
 	}
-	
-	void clearHint()
-	{
-		if (welcomeMessage.isShown())
-			welcomeMessage.setVisibility(View.GONE);
-	}
 
 	Button makeButton(Context context, String text, int id)
 	{
@@ -102,92 +38,6 @@ public class OverviewActivity extends Activity
 		b.setId(id);
 		return b;
 	}
-	
-	public void toggleNames(View view)
-	{
-		View v;
-		if (namesAreVisible)
-		{
-			for(int i=0; i<displayedNames.size(); i++)
-			{
-				v = findViewById(displayedNames.get(i));
-				v.setVisibility(View.GONE);
-			}
-			namesAreVisible = false;
-		}
-		else
-		{
-			for(int i=0; i<displayedNames.size(); i++)
-			{
-				v = findViewById(displayedNames.get(i));
-				v.setVisibility(View.VISIBLE);
-			}
-			namesAreVisible = true;
-		}
-	}
-	
-	View.OnClickListener pickerButtonListener = new View.OnClickListener()
-	{
-		@Override
-		public void onClick(View button)
-		{
-			if (button.getId() == CLASS_BUTTON)
-			{
-				Box classBox = new Box(OverviewActivity.this, Color.RED);
-				classBox.setMinimumHeight(100);
-				classBox.setMinimumWidth(200);
-				classBox.setPadding(4,4,4,4);
-				classBox.setName("class");
-				
-				Picker boxPicker = new Picker(OverviewActivity.this, anchor, classBox);
-				boxPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);
-				classBox.setPicker(boxPicker);
-				classBox.setOnTouchListener(touchListener);
-				
-				Picker.PickerButton pb = (Picker.PickerButton)button;
-				ViewGroup target = pb.getTarget();
-				target.addView(classBox);
-				
-				Picker srcPicker = (Picker)pb.getParent();
-				srcPicker.dismiss();
-			}
-			else
-			{
-				OverviewActivity.popMesg(OverviewActivity.this, "not implemented");
-			}
-		}
-	};
-	
-	View.OnTouchListener touchListener = new View.OnTouchListener() 
-	{
-		@Override
-		public boolean onTouch(View v, MotionEvent e)
-		{
-			if (e.getAction() == MotionEvent.ACTION_UP)
-			{
-				clearHint();
-				
-				Picker p;
-				if (v.getId() == R.id.desktop)
-					p = desktopPicker;
-				else
-				{
-					Box box = (Box)v;
-					p = box.getPicker();
-				}
-				
-				if (p.isShowing())
-					p.dismiss();
-				else
-				{
-					p.setX(e.getX());
-					p.setY(e.getY());
-					p.publish();
-				}
-			}
-			return true;
-		}
-	};
 	
 	class ComponentChooserFragment extends DialogFragment
 	{
@@ -199,19 +49,19 @@ public class OverviewActivity extends Activity
 			AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
 			b.setTitle("component");
 			b.setItems(R.array.component_type_list, new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int selected)
+				public void onClick(DialogInterface dialog, int selected)
+				{
+					switch(selected)
 					{
-						switch(selected)
-						{
-							case CLASS:
-								ComponentView v = new ComponentView(OverviewActivity.this, "class");
-								desktop.addView(v);
-								break;
-							default:
-								popMesg(OverviewActivity.this, "oops");
-						}
+						case CLASS:
+							ComponentView v = new ComponentView(OverviewActivity.this, "class");
+							desktop.addView(v);
+							break;
+						default:
+							popMesg(OverviewActivity.this, "oops");
 					}
-				});
+				}
+			});
 
 			return b.create();
 		}
