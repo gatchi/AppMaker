@@ -62,19 +62,24 @@ public class OverviewActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.component_layout);
+        setContentView(R.layout.simple_layout);
 		
-		anchor = findViewById(R.id.anchor);
+		//anchor = findViewById(R.id.anchor);
 		desktop = (ViewGroup)findViewById(R.id.desktop);
-		welcomeMessage = findViewById(R.id.welcome_message);
+		//welcomeMessage = findViewById(R.id.welcome_message);
 		
-		desktopPicker = new Picker(this, anchor, desktop);
-		desktopPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);
-		desktopPicker.addButton("activity", 0, pickerButtonListener);  // not implemented
-		desktopPicker.addButton("resource", 0, pickerButtonListener);  // not implemented
-		desktop.setOnTouchListener(touchListener);
+//		desktopPicker = new Picker(this, anchor, desktop);
+//		desktopPicker.addButton("class", CLASS_BUTTON, pickerButtonListener);
+//		desktopPicker.addButton("activity", 0, pickerButtonListener);  // not implemented
+//		desktopPicker.addButton("resource", 0, pickerButtonListener);  // not implemented
+//		desktop.setOnTouchListener(touchListener);
     }
 
+	public void addComponent(View v)
+	{
+		popMesg(OverviewActivity.this, "haha");
+	}
+	
 	public void clearDesktop(View v)
 	{
 		desktop.removeAllViews();
