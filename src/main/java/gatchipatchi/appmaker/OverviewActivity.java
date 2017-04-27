@@ -16,7 +16,7 @@ public class OverviewActivity extends Activity
 	static final int CLASS_BUTTON = 1;
 	Picker desktopPicker;
 	View anchor;
-	ViewGroup desktop;
+	LinearLayout desktop;
 	View welcomeMessage;
 	ArrayList<Integer> displayedNames = new ArrayList<Integer>();
 	boolean namesAreVisible = true;
@@ -66,7 +66,7 @@ public class OverviewActivity extends Activity
         setContentView(R.layout.simple_layout);
 		
 		//anchor = findViewById(R.id.anchor);
-		desktop = (ViewGroup)findViewById(R.id.desktop);
+		desktop = (LinearLayout)findViewById(R.id.desktop);
 		//welcomeMessage = findViewById(R.id.welcome_message);
 		
 //		desktopPicker = new Picker(this, anchor, desktop);
@@ -80,9 +80,8 @@ public class OverviewActivity extends Activity
 
 	public void addComponent(View v)
 	{
-		popMesg(OverviewActivity.this, "haha");
 		ComponentChooserFragment chooser = new ComponentChooserFragment();
-		chooser.show(fragManager, "uhh");
+		chooser.show(fragManager, "a");
 	}
 	
 	public void clearDesktop(View v)
@@ -205,8 +204,11 @@ public class OverviewActivity extends Activity
 						switch(selected)
 						{
 							case CLASS:
-								popMesg(OverviewActivity.this, "lel");
+								ComponentView v = new ComponentView(OverviewActivity.this, "class");
+								desktop.addView(v);
 								break;
+							default:
+								popMesg(OverviewActivity.this, "oops");
 						}
 					}
 				});

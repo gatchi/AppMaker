@@ -4,5 +4,6 @@
 	<color name="orange">#FF9000</color>
 	<color name="yellow">#ffff00</color>
 	<color name="blue">#0000ff</color>
+	<color name="grey">#999999</color>
 	<color name="black">#000000</color>
 </resources>
