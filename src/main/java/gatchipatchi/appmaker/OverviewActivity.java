@@ -4,7 +4,8 @@ import android.app.*;
 import android.content.*;
 import android.os.*;
 import android.view.*;
-import android.widget.*; 
+import android.widget.*;
+import android.view.View.*; 
 
 public class OverviewActivity extends Activity 
 {
@@ -39,6 +40,19 @@ public class OverviewActivity extends Activity
 		return b;
 	}
 	
+	OnClickListener componentClickListener = new OnClickListener()
+	{
+		@Override
+		public void onClick(View v)
+		{
+			// start a new OverviewActivity
+			Intent in = new Intent(OverviewActivity.this, OverviewActivity.class);
+			// this needs to pass a reference to which component is being clicked
+			// could do a serialiuzeable class, but may be more prudent to pass a persiastent data reference (like generated code)
+			startActivity(in);
+		}
+	};
+	
 	class ComponentChooserFragment extends DialogFragment
 	{
 		final static int CLASS = 0;
@@ -56,6 +70,7 @@ public class OverviewActivity extends Activity
 						case CLASS:
 							ComponentView v = new ComponentView(OverviewActivity.this, "class");
 							desktop.addView(v);
+							v.setOnClickListener(componentClickListener);
 							break;
 						default:
 							popMesg(OverviewActivity.this, "oops");
